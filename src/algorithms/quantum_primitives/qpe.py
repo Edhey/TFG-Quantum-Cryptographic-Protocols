@@ -5,29 +5,23 @@ This module contains educational implementations of the Quantum
 Phase Estimation (QPE). Designed for use in the simulation notebooks for the
 final-year project.
 
-! Notice that in this implementation, we are returning the QFT and IQFT as gates
-! instead of circuits. This is to allow for modularity and reusability in larger
-! quantum algorithms, such as Shor's algorithm, where the QFT and IQFT are often used
-! as subroutines.
-
 Author: Himar Edhey Hernández Alonso
 Licence: MIT
 """
 
 from qiskit import QuantumCircuit
-from qiskit.circuit import Gate
 
 from src.algorithms.quantum_primitives.qft import iqft
 
 
-def qpe(estimation_wires: int, operator_u: QuantumCircuit) -> Gate:
+def qpe(estimation_wires: int, operator_u: QuantumCircuit) -> QuantumCircuit:
     """
     Generates the Quantum Phase Estimation (QPE) circuit for unitary operator provided.
     Args:
         estimation_wires: number of qubits in the estimation register
         operator_u: QC that represents the unitary operator U to be estimated.
     Returns:
-        Gate: The complete QPE gate.
+        QuantumCircuit: The complete QPE circuit.
     """
     target_wires = operator_u.num_qubits
     total_qubits = estimation_wires + target_wires
@@ -51,5 +45,5 @@ def qpe(estimation_wires: int, operator_u: QuantumCircuit) -> Gate:
         iqft(estimation_wires), qubits=range(estimation_wires), inplace=True
     )
 
-    qpe_gate = qpe_circ.to_gate(label="QPE")  # Circuit to a gate for modularity
-    return qpe_gate
+    qpe_circ.name = "QPE"
+    return qpe_circ
