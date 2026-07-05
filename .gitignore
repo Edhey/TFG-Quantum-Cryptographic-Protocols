@@ -1049,9 +1049,6 @@ Mkfile.olfid
 dkms.conf
 
 # Own folders
-0_introduction/
-caesar/
-vignere/
-5_quantum-key-distribution/
-6_lattices/
+6_quantum-key-distribution/
+7_lattices/
 docs/
